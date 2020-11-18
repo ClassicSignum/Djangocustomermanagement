@@ -19,13 +19,17 @@ def registerPage(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
+            # print("views=> form is valid")
             newuser=form.save()
+            # print("views=> form is saved")
             user = form.cleaned_data.get('username')
-            group = Group.objects.get(name='customer')
-            newuser.groups.add(group)
-            Customer.objects.create(
-                user=newuser,
-            )
+
+            # group = Group.objects.get(name='customer')
+            # newuser.groups.add(group)
+            # Customer.objects.create(
+            #     user=newuser,
+            # )
+            # print("views=> account cret succ")
             messages.success(request,'Account was created for '+user)
             return redirect('login')
     context={'form':form}
